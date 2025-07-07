@@ -10,7 +10,7 @@ const login = async (req, res) => {
     if (googleAuth) {
       const decoded = jwt.decode(googleAuth);
       if (!decoded || !decoded.email) {
-        res
+        return res
           .status(400)
           .json({ message: "Invalid Google Credentials", success: false });
       }
