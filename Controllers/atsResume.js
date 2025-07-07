@@ -1,4 +1,3 @@
-const fs = require("fs");
 const pdfparser = require("pdf-parse");
 const mammoth = require("mammoth");
 
@@ -145,7 +144,7 @@ const atsScore = async (req, res) => {
   }
 
   try {
-    const dataBuffer = fs.readFileSync(file.path);
+    const dataBuffer = file.buffer;
 
     let text = "";
 
@@ -161,9 +160,6 @@ const atsScore = async (req, res) => {
     } else {
       return res.status(400).json({ error: "Unsupported file type" });
     }
-
-    // Remove file after parsing
-    fs.unlinkSync(file.path);
 
     // Normalize and clean text
     text = text.replace(/\s+/g, " ").trim();
