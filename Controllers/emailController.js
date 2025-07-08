@@ -70,30 +70,32 @@ const verifyEmail = async (req, res) => {
     res.status(200).json({ message: "Email verified successfully, Go to Signup" });
 };
 
-const RegisteredEmail = (email) => {
-  
-  const transporter = nodemailer.createTransport({
-    service: "gmail",
-    auth: {
-      user: process.env.EmailId,
-      pass: process.env.EmailPassword,
-    },
-  });
+const RegisteredEmail = async (email) => {
+  try {
+    const transporter = nodemailer.createTransporter({
+      host: "smtp.gmail.com",
+      port: 465,
+      secure: true,
+      auth: {
+        user: process.env.EmailId,
+        pass: process.env.EmailPassword,
+      },
+    });
 
-  const mailOptions = {
-    from: process.env.EmailId,
-    to: email,
-    subject: "Registration Successful",
-    text: "Welcome to Resume Builder, Your account has been created successfully. You can now log in with your credentials.",
-  };
+    const mailOptions = {
+      from: process.env.EmailId,
+      to: email,
+      subject: "Registration Successful",
+      text: "Welcome to Resume Builder, Your account has been created successfully. You can now log in with your credentials.",
+    };
 
-  transporter.sendMail(mailOptions, function (error, info) {
-    if (error) {
-      console.log(error);
-    } else {
-      console.log("Email sent: " + info.response);
-    }
-  });
+    const info = await transporter.sendMail(mailOptions);
+    console.log("Email sent successfully:", info.response);
+    return { success: true, info };
+  } catch (error) {
+    console.error("Email sending failed:", error);
+    return { success: false, error: error.message };
+  }
 };
 
 module.exports = {
