@@ -73,7 +73,9 @@ const verifyEmail = async (req, res) => {
 const RegisteredEmail = (email) => {
   
   const transporter = nodemailer.createTransport({
-    service: "gmail",
+    host: "smtp.gmail.com",
+    port: 465,
+    secure: true,
     auth: {
       user: process.env.EmailId,
       pass: process.env.EmailPassword,
