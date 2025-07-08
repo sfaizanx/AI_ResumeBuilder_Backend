@@ -3,6 +3,7 @@ const { v4: uuidv4 } = require("uuid");
 const User = require("../Models/Users");
 require("dotenv").config();
 
+
 const requestEmailVerification = async (req, res) => {
   const { email } = req.body;
   const token = uuidv4();
