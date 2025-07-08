@@ -75,8 +75,8 @@ const RegisteredEmail = (email) => {
   const transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
-      user: "sayyedfaizan1777@gmail.com",
-      pass: "raao xtmi lnwi wvik",
+      user: process.env.EmailId,
+      pass: process.env.EmailPassword,
     },
   });
 
