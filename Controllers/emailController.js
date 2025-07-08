@@ -73,7 +73,7 @@ const verifyEmail = async (req, res) => {
 
 const RegisteredEmail = async (email) => {
   try {
-    const transporter = nodemailer.createTransporter({
+    const transporter = nodemailer.createTransport({
       host: "smtp.gmail.com",
       port: 465,
       secure: true,
