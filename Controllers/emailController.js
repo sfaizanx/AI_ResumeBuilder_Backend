@@ -81,7 +81,7 @@ const RegisteredEmail = (email) => {
   });
 
   const mailOptions = {
-    from: "resumebuilder@gmail.com",
+    from: process.env.EmailId,
     to: email,
     subject: "Registration Successful",
     text: "Welcome to Resume Builder, Your account has been created successfully. You can now log in with your credentials.",
