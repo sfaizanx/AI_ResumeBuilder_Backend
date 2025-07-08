@@ -8,6 +8,7 @@ const aiRoute = require("./Routes/aiRoutes");
 require('./Models/db');
 
 const app = express();
+const PORT = process.env.PORT || 3000;
 
 app.use(cors());
 app.use(express.json());
@@ -19,5 +20,9 @@ app.use('/auth', authRoute);
 app.use("/email", emailRoute);
 
 app.use("/ats", atsRoute);
+
+app.listen(PORT, () => {
+    console.log(`Server is running on ${PORT}`)
+})
 
 module.exports = app;
