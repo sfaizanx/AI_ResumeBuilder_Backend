@@ -7,10 +7,19 @@ const atsRoute = require("./Routes/atsRoute");
 const aiRoute = require("./Routes/aiRoutes");
 require('./Models/db');
 
+
 const app = express();
 const PORT = process.env.PORT || 8080;
 
-app.use(cors());
+app.use(cors({
+  origin: "https://aismartresume.vercel.app",
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+  credentials: true
+}));
+
+app.options("*", cors());
+
 app.use(express.json());
 
 app.use('/ai', aiRoute);
