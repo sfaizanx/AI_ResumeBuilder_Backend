@@ -22,6 +22,10 @@ app.use("/email", emailRoute);
 
 app.use("/ats", atsRoute);
 
+app.get('/', (req, res) => {
+  res.send('Welcome Faizan');
+});
+
 app.listen(PORT, () => {
     console.log(`Server is running on ${PORT}`)
 })
