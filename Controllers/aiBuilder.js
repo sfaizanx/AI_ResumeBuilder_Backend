@@ -8,7 +8,7 @@ const aiJobDesc = async (req, res) => {
   if (!jobDesc) return res.status(400).send({ error: "Job title is required" });
 
   try {
-    const model = ai.getGenerativeModel({ model: "gemini-2.0-flash" });
+    const model = ai.getGenerativeModel({ model: "gemini-1.5-flash" });
     const result =
       await model.generateContent(`I am creating a resume. My job title is: ${jobDesc}.
 Please write a professional and impactful Objective for this role, suitable for a resume.
@@ -28,7 +28,7 @@ const getResume = async (req, res) => {
     return res.status(400).send({ error: "Job-details is required" });
 
   try {
-    const model = ai.getGenerativeModel({ model: "gemini-2.0-flash" });
+    const model = ai.getGenerativeModel({ model: "gemini-1.5-flash" });
 
     const result = await model.generateContent(
       `From the following description, generate a JSON in this format:
@@ -83,7 +83,7 @@ const getTitle = async (req, res) => {
   }
 
   try {
-    const model = ai.getGenerativeModel({ model: "gemini-2.0-flash" });
+    const model = ai.getGenerativeModel({ model: "gemini-1.5-flash" });
 
     const result = await model.generateContent(
       `The user entered this job title: "${jobTitle}". Suggest a more professional or industry-standard job title that enhances resume appeal. 
