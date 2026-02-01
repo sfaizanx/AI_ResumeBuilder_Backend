@@ -8,7 +8,14 @@ const aiJobDesc = async (req, res) => {
   if (!jobDesc) return res.status(400).send({ error: "Job title is required" });
 
   try {
-    const model = ai.getGenerativeModel({ model: "gemini-1.5-flash" });
+    const model = ai.getGenerativeModel({
+      model: process.env.GEMINI_MODEL,
+      generationConfig: {
+        responseMimeType: "application/json",
+        temperature: 0.3,
+      },
+    });
+
     const result =
       await model.generateContent(`I am creating a resume. My job title is: ${jobDesc}.
 Please write a professional and impactful Objective for this role, suitable for a resume.
@@ -28,7 +35,7 @@ const getResume = async (req, res) => {
     return res.status(400).send({ error: "Job-details is required" });
 
   try {
-    const model = ai.getGenerativeModel({ model: "gemini-1.5-flash" });
+    const model = ai.getGenerativeModel({ model: process.env.GEMINI_MODEL });
 
     const result = await model.generateContent(
       `From the following description, generate a JSON in this format:
@@ -44,8 +51,10 @@ const getResume = async (req, res) => {
 - atsAI: "Good // Is this resume ATS-compatible? show what more user can add values that make ats-friendly resume all in 15 words"
 
 Only return raw JSON without any extra explanation.
+If you cannot infer a field, use null. Never add comments or trailing commas.
 
-Description: ${jobdetails}`
+
+Description: ${jobdetails}`,
     );
 
     const response = await result.response;
@@ -83,11 +92,11 @@ const getTitle = async (req, res) => {
   }
 
   try {
-    const model = ai.getGenerativeModel({ model: "gemini-1.5-flash" });
+    const model = ai.getGenerativeModel({ model: process.env.GEMINI_MODEL });
 
     const result = await model.generateContent(
       `The user entered this job title: "${jobTitle}". Suggest a more professional or industry-standard job title that enhances resume appeal. 
-Provide only one refined title without any extra explanation.`
+Provide only one refined title without any extra explanation.`,
     );
 
     const response = await result.response;
@@ -102,5 +111,5 @@ Provide only one refined title without any extra explanation.`
 module.exports = {
   aiJobDesc,
   getResume,
-  getTitle
+  getTitle,
 };
